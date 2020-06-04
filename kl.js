@@ -14,13 +14,15 @@ var Rect = {
   positionY: 350,
 };
 var Obs = {
-  positionX: 850,
+  positionX: 900,
   positionY: 350,
 };
 var mObs = {
-  positionX: 850,
+  positionX: 900,
   positionY: 350,
 };
+
+k=Math.floor(Math.random()*500+200)
 death = false;
 
 function setup() {
@@ -42,18 +44,20 @@ function draw() {
   if (aCounter >= 30) {
     velocityX += aX;
     aCounter = 0;
-    if (velocityX >= 20) {
-      velocityX = 20;
+    if (velocityX >= 15) {
+      velocityX = 15;
     }
   }
 
   Obs.positionX -= velocityX;
   mObs.positionX -= velocityX;
-  if (Obs.positionX < -20) {
-    Obs.positionX = 850;
+  if (Obs.positionX < -20 & mObs.positionX<k) {
+    Obs.positionX = 900;
+    k=Math.floor(Math.random()*500+200)
   }
-  if (mObs.positionX <-20) {
-    mObs.positionX=1000
+  if (mObs.positionX <-20 & Obs.positionX<k) {
+    mObs.positionX=900;
+    k=Math.floor(Math.random()*500+200)
   }
   function Jump() {
     if (Rect.positionY + 20 < 360) {
@@ -108,11 +112,11 @@ function draw() {
         positionY: 350,
       };
       Obs = {
-        positionX: 750,
+        positionX: 900,
         positionY: 350,
       };
       mObs = {
-        positionX: 850,
+        positionX: 900,
         positionY: 350,
       };
       death = false;
