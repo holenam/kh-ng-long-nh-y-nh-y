@@ -10,7 +10,7 @@ var aY = 0;
 var aCounter = 0;
 
 var Score = 0;
-var scoreMultiplier = velocityX / 5;
+var scoreMultiplier = velocityX / 50;
 var highScore = 0;
 var Rect = {
   positionX: 150,
@@ -39,7 +39,7 @@ function reset() {
   aCounter = 0;
 
   Score = 0;
-  scoreMultiplier = velocityX / 5;
+  scoreMultiplier = velocityX / 50;
   Rect = {
     positionX: 150,
     positionY: 350,
@@ -97,19 +97,24 @@ function stop() {
     }
   }
 }
+let img 
+function preload() {
+  img = loadImage('https://vignette.wikia.nocookie.net/geometry-dash-fan-ideas/images/5/50/Wiki-background/revision/latest?cb=20191202185018')
+}
+
 function setup() {
   createCanvas(850, 450);
 }
 
 function draw() {
-  background(100, 100, 100);
+  background(img)
   stroke(200);
   line(0, 370, 850, 370);
   rect(Rect.positionX, Rect.positionY, 20, 20);
   fill(250, 250, 250);
   rect(Obs.positionX, Obs.positionY - Obs.height, 20, Obs.height);
   rect(mObs.positionX, mObs.positionY - mObs.height, 20, mObs.height);
-  if (Score > 200) {
+  if (Score > 20) {
     tutorial = false;
   }
   if (tutorial) {
@@ -127,18 +132,18 @@ function draw() {
       velocityX = 20;
     }
   }
-  scoreMultiplier = velocityX / 5;
+  scoreMultiplier = velocityX / 50;
   Obs.positionX -= velocityX;
   mObs.positionX -= velocityX;
   if ((Obs.positionX < -20) & (mObs.positionX < k)) {
     Obs.positionX = 900;
     k = Math.floor(Math.random() * 400 + 200);
-    Obs.height = Math.floor(Math.random() * 50 + 10);
+    Obs.height = Math.floor(Math.random() * velocityX * 2 + velocityX * 1.5);
   }
   if ((mObs.positionX < -20) & (Obs.positionX < k)) {
     mObs.positionX = 900;
     k = Math.floor(Math.random() * 400 + 200);
-    mObs.height = Math.floor(Math.random() * 50 + 10);
+    mObs.height = Math.floor(Math.random() * velocityX * 2 + velocityX* 1.5);
   }
   Score += scoreMultiplier;
   textSize(15);
