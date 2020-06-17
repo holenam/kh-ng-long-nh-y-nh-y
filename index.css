@@ -1,0 +1,19 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #8360c3;
+    background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);  
+    background: linear-gradient(to right, #2ebf91, #8360c3); 
+
+}
+
+.main-canvas {
+    display: flex;
+    justify-content: center;
+    margin-top: 5.5%;
+}
+
+header {
+    text-align: center;
+}
+
