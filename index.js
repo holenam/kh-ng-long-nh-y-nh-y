@@ -2,12 +2,14 @@ death = false;
 tutorial = true;
 var velocityX = 5;
 var velocityY = 0;
+var velocityZ = 0;
 var yJump = 0;
 
 var aX = 0.2;
 var aY = 0;
 
 var aCounter = 0;
+var yCounter = 0;
 
 var Score = 0;
 var scoreMultiplier = velocityX / 50;
@@ -34,7 +36,7 @@ function reset() {
   yJump = 0;
 
   aX = 0.2;
-  aY = 0;
+  aY = 0.2;
 
   aCounter = 0;
 
@@ -54,10 +56,14 @@ function reset() {
     positionY: 370,
     height: 20,
   };
+  CuLua = {
+	positionX: 900,
+	positionY: 370,
+	height: 80,
+  };
   death = false;
   tutorial = true;
 }
-
 function Jump() {
   if (Rect.positionY + 20 < 360) {
     yJump += 1;
@@ -100,21 +106,14 @@ function stop() {
 }
 let img 
 function preload() {
-  img = loadImage('https://wallup.net/wp-content/uploads/2017/11/22/329814-jjying-low_poly-748x468.jpg')
+  img = loadImage('https://vignette.wikia.nocookie.net/geometry-dash-fan-ideas/images/5/50/Wiki-background/revision/latest?cb=20191202185018')
 }
 
 function setup() {
-  var canvas = createCanvas(850, 450);
-  canvas.parent('canvas-holder')
+  createCanvas(850, 450);
 }
 
-// let Img
-// function preload() {
-//   Img = loadImage('D:/[Official]DOWNLOAD/creation-20200617T084247Z-001/creation/dino-pixilart (Copy).jpg')
-// }
-
 function draw() {
-  // Obs(Img)
   background(img)
   stroke(200);
   line(0, 370, 850, 370);
@@ -140,19 +139,30 @@ function draw() {
       velocityX = 20;
     }
   }
+  if (aCounter>= 60) {
+	velocityY += aY;
+	aCounter = 0;
+	if (velocityY >= 10) {
+	  velocityY = 10;
+	}
+  }
   scoreMultiplier = velocityX / 50;
-  Obs.positionX -= velocityX;
-  mObs.positionX -= velocityX;
-  if ((Obs.positionX < -20) & (mObs.positionX < k)) {
-    Obs.positionX = 900;
-    k = Math.floor(Math.random() * 400 + 200);
-    Obs.height = Math.floor(Math.random() * velocityX * 2 + velocityX * 1.5);
+
+  function Obstacles() {
+	Obs.positionX -= velocityX;
+  	mObs.positionX -= velocityX;
+  	if ((Obs.positionX < -20) & (mObs.positionX < k)) {
+        Obs.positionX = 900;
+    	k = Math.floor(Math.random() * 400 + 200);
+    	Obs.height = Math.floor(Math.random() * velocityX * 2 + velocityX * 1.5);
   }
-  if ((mObs.positionX < -20) & (Obs.positionX < k)) {
-    mObs.positionX = 900;
-    k = Math.floor(Math.random() * 400 + 200);
-    mObs.height = Math.floor(Math.random() * velocityX * 2 + velocityX* 1.5);
+  	if ((mObs.positionX < -20) & (Obs.positionX < k)) {
+    	mObs.positionX = 900;
+    	k = Math.floor(Math.random() * 400 + 200);
+    	mObs.height = Math.floor(Math.random() * velocityX * 2 + velocityX* 1.5);
   }
+  }
+  
   Score += scoreMultiplier;
   textSize(15);
   text("SCORE :  " + Math.floor(Score), 850 / 2, 20);
@@ -162,4 +172,32 @@ function draw() {
   if (death & keyIsDown(32)) {
     setTimeout(reset, 200);
   }
+
+  yCounter ++;
+  if (yCounter>= 60) {
+	velocityZ -= aY;
+	yCounter = 0;
+	if (velocityZ >= 10) {
+	  velocityZ = 10;
+	}
+  }
+function Culua() {
+	rect(CuLua.positionX, CuLua.positionY, 20, CuLua.height);
+	CuLua.positionX -= velocityX;
+	CuLua.height -= velocityY;
+	if ((Score == 500) & (CuLua.positionX < -20) & (CuLua.positionX < k)) {
+		CuLua.positionX = 900;
+    	k = Math.floor(Math.random() * 400 + 200);
+    	CuLua.height = Math.floor(Math.random() * velocityX * 2 + velocityX* 1.5);
+		if (CuLua.height == 100) {
+			CuLua.height += velocityZ;
+			if (CuLua.height == 350) {
+				CuLua.height -= velocityY;
+			}
+		}
+	}
+	
 }
+CuLua();
+}
+
